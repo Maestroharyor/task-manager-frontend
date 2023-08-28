@@ -5,7 +5,7 @@ const Footer = () => {
         &copy; {new Date().getFullYear()} - Crafted by{" "}
         <a
           className="underline"
-          href="htts://ayomideodewale.com"
+          href="https://ayomideodewale.com"
           target="_blank"
         >
           Maestro
