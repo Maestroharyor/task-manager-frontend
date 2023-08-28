@@ -90,7 +90,8 @@ const TaskView = () => {
               }`}
               onClick={() => handleTabChange("all")}
             >
-              <span>All Tasks</span>
+              <span className="xl:hidden">All</span>
+              <span className="hidden xl:inline">All Tasks</span>
               <div className="h-[18px] w-[18px] rounded-full flex items-center justify-center text-[10px] bg-gray-300 dark:bg-gray-600">
                 <span>{tasks.length}</span>
               </div>

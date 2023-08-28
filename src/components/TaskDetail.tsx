@@ -87,7 +87,10 @@ const TaskDetail = () => {
       {selectedTask ? (
         <div className="divide-y divide-gray-300 dark:divide-gray-700  flex flex-col h-full px-5">
           <div className="  pt-5 pb-4 lg:pt-5 lg:pb-2 flex items-center gap-3 ">
-            <button className=" text-lg " onClick={() => setSelectedTask(null)}>
+            <button
+              className=" text-2xl lg:text-xl "
+              onClick={() => setSelectedTask(null)}
+            >
               <MdClose />
             </button>
             <div className="">

@@ -55,12 +55,16 @@ const TagPane = () => {
             <div className="flex items-center gap-2 flex-1 translate-x-3 pr-2">
               {" "}
               <button
-                className="px-3 text-white text-[12px] py-1 bg-blue-500  hover:bg-blue-600  rounded transition-all duration-300 ease-in-out whitespace-nowrap self-center"
+                className="px-3 text-white text-sm lg:text-[12px] py-2 lg:py-1 bg-blue-500  hover:bg-blue-600  rounded transition-all duration-300 ease-in-out whitespace-nowrap self-center"
                 type="submit"
               >
                 Add Tag
               </button>
-              <button type="button" onClick={() => setIsAddMode(false)}>
+              <button
+                type="button"
+                onClick={() => setIsAddMode(false)}
+                className="text-2xl px-2 lg:px-1 lg:text-base"
+              >
                 <MdClose />
               </button>
             </div>
