@@ -1,4 +1,3 @@
-import React from "react";
 import { BsTrash } from "react-icons/bs";
 import { Task } from "../../types";
 import { useTaskContext } from "../../context/taskContext";

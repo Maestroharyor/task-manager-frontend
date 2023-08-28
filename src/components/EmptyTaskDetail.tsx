@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-const EmptyTaskDetail = (props: Props) => {
+const EmptyTaskDetail = () => {
   return (
     <div className="h-full flex flex-col items-center justify-center gap-5 text-blue-500 dark:text-yellow-500 px-5">
       <div>

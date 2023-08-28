@@ -7,9 +7,7 @@ import { toast } from "react-hot-toast";
 import { Task } from "../types";
 import { useTagContext } from "../context/tagContext";
 
-type Props = {};
-
-const TaskView = (props: Props) => {
+const TaskView = () => {
   const { tasks, createTask } = useTaskContext();
   const { selectedTag } = useTagContext();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);

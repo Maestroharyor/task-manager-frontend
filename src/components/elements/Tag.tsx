@@ -116,7 +116,7 @@ const Tag = ({ tag }: Props) => {
             <div className="py-4 flex justify-between">
               <button
                 className="px-2 py-2  hover:text-red-500  rounded transition-all duration-300 ease-in-out text-sm cursor-pointer"
-                onClick={(e) => {
+                onClick={() => {
                   handleTagDelete(tag._id);
                 }}
               >

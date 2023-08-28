@@ -7,9 +7,7 @@ import { useTaskContext } from "../context/taskContext";
 import { toast } from "react-hot-toast";
 import { useSidebarMenuContext } from "../context/sidebarMenuContext";
 
-type Props = {};
-
-const TagPane = (props: Props) => {
+const TagPane = () => {
   const { menuState, toggleSidebar, hideSidebar } = useSidebarMenuContext();
   const { tags, setSelectedTag, createTag } = useTagContext();
   const { tasks } = useTaskContext();
