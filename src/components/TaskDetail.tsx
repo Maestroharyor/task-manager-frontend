@@ -51,8 +51,7 @@ const TaskDetail = () => {
     );
     setSelectedTaskEdit((prevTask) => ({ ...prevTask, tags: updatedTags }));
     setAvailableTags(
-      // eslint-disable-next-line no-unused-vars
-      tags.filter((tag) =>
+      tags.filter(() =>
         selectedTaskEdit.tags.some((tag) => tag._id === tag._id)
       )
     );
@@ -64,8 +63,7 @@ const TaskDetail = () => {
     }
   }, [selectedTask]);
 
-  // eslint-disable-next-line no-unused-vars
-  const handleTaskToggle = (taskId: string, completed: boolean) => {
+  const handleTaskToggle = (taskId: string, _completed: boolean) => {
     toggleTaskCompletion(taskId);
   };
 
