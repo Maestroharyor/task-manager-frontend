@@ -6,6 +6,7 @@ import Rodal from "rodal";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSidebarMenuContext } from "../../context/sidebarMenuContext";
+import { capitalizeFirstLetter } from "../../utils";
 
 type Props = {
   tag: Tag;
@@ -43,7 +44,7 @@ const Tag = ({ tag }: Props) => {
       >
         <div className="inline-flex gap-2 items-center cursor-pointer">
           <BsTag />
-          <p>{tag.name}</p>
+          <p>{capitalizeFirstLetter(tag.name)}</p>
           <div className="h-[18px] w-[18px] rounded-full flex items-center justify-center text-[10px] bg-gray-300 dark:bg-gray-600">
             <p>{tag.count}</p>
           </div>

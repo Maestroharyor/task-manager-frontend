@@ -7,7 +7,7 @@ import {
   updateTaskCompletionStatusAPI,
 } from "../server/api";
 import { mutate } from "swr";
-import { cacheKey } from "../server";
+import { cacheKey, tagCacheKey } from "../server";
 import { toast } from "react-hot-toast";
 
 interface TaskContextProps {
@@ -46,6 +46,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({
         { _id: crypto.randomUUID(), ...newTask, tags: [] },
       ]);
       await createNewTaskAPI(newTask);
+      mutate(tagCacheKey);
       mutate(cacheKey);
     } catch (error: any) {
       toast.error(
@@ -60,6 +61,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
       await deleteTaskAPI(taskId);
       mutate(cacheKey);
+      mutate(tagCacheKey);
     } catch (error: any) {
       toast.error(
         error?.response?.data?.message ||
@@ -80,6 +82,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({
       );
       await updateTaskAPI(taskId, updatedProperties);
       mutate(cacheKey);
+      mutate(tagCacheKey);
     } catch (error: any) {
       toast.error(
         error?.response?.data?.message ||

@@ -59,12 +59,9 @@ const TaskItem = ({ task }: Props) => {
               />
             </svg>
           </span>
-          {/* <span className="ml-4 text-sm">{task.title}</span> */}
         </label>
       </div>
-      {/* <div>
-        <input type="checkbox" className="cursor-pointer" />{" "}
-      </div>*/}
+
       <div className="flex-1 overflow-hidden">
         <div className="flex flex-grow overflow-hidden">
           <div className="flex-grow mr-3 overflow-hidden">

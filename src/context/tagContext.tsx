@@ -6,7 +6,11 @@ import React, {
   ReactNode,
 } from "react";
 import { tagsData } from "../data/tags";
-import { Tag } from "../types";
+import { NewTag, Tag } from "../types";
+import { toast } from "react-hot-toast";
+import { createTagAPI, deleteTagAPI, updateTagAPI } from "../server/api";
+import { mutate } from "swr";
+import { tagCacheKey } from "../server";
 
 interface TagContextProps {
   tags: Tag[];
@@ -34,21 +38,51 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
 
-  const createTag = (newTag: Tag) => {
-    setTags((prevTags) => [...prevTags, newTag]);
+  const createTag = async (newTag: Tag) => {
+    try {
+      setTags((prevTags) => [...prevTags, newTag]);
+      await createTagAPI(newTag);
+      mutate(tagCacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while creating the tag"
+      );
+    }
   };
 
-  const updateTag = (tagId: string, updatedProperties: Partial<Tag>) => {
-    setTags((prevTags) =>
-      prevTags.map((tag) =>
-        tag._id === tagId ? { ...tag, ...updatedProperties } : tag
-      )
-    );
+  const updateTag = async (
+    tagId: string,
+    updatedProperties: Partial<NewTag>
+  ) => {
+    try {
+      setTags((prevTags) =>
+        prevTags.map((tag) =>
+          tag._id === tagId ? { ...tag, ...updatedProperties } : tag
+        )
+      );
+      await updateTagAPI(tagId, updatedProperties);
+      mutate(tagCacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while updating the tag"
+      );
+    }
   };
 
-  const deleteTag = (tagId: string) => {
-    const updatedTags = tags.filter((tag) => tag._id !== tagId);
-    setTags(updatedTags);
+  const deleteTag = async (tagId: string) => {
+    try {
+      const updatedTags = tags.filter((tag) => tag._id !== tagId);
+      setTags(updatedTags);
+      await deleteTagAPI(tagId);
+      mutate(tagCacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while deleting the tag"
+      );
+    }
   };
 
   const value: TagContextProps = {

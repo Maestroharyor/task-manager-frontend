@@ -18,9 +18,17 @@ export interface Tag {
   color: string;
   count: number;
 }
+export interface NewTag {
+  name: string;
+}
 
 export interface ApiResponse<T> {
   success: boolean;
   message: string;
   data: T;
+}
+
+export interface ApiTagDeleteResponse {
+  success: boolean;
+  message: string;
 }

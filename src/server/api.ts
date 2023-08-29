@@ -1,6 +1,13 @@
 import { AxiosResponse } from "axios";
 import { taskService } from ".";
-import { ApiResponse, NewTask, Tag, Task } from "../types";
+import {
+  ApiResponse,
+  ApiTagDeleteResponse,
+  NewTag,
+  NewTask,
+  Tag,
+  Task,
+} from "../types";
 
 export const getTasks = async (): Promise<ApiResponse<Task[]>> => {
   const response: AxiosResponse<ApiResponse<Task[]>> = await taskService.get(
@@ -61,15 +68,17 @@ export const getTags = async (): Promise<ApiResponse<Tag[]>> => {
   return response.data;
 };
 
-export const getTagById = async (tagId: string): Promise<ApiResponse<Tag>> => {
+export const getTagByIdAPI = async (
+  tagId: string
+): Promise<ApiResponse<Tag>> => {
   const response: AxiosResponse<ApiResponse<Tag>> = await taskService.get(
     `/tags/${tagId}`
   );
   return response.data;
 };
 
-export const createTag = async (
-  tagData: Partial<Tag>
+export const createTagAPI = async (
+  tagData: Partial<NewTag>
 ): Promise<ApiResponse<Tag>> => {
   const response: AxiosResponse<ApiResponse<Tag>> = await taskService.post(
     "/tags",
@@ -78,7 +87,7 @@ export const createTag = async (
   return response.data;
 };
 
-export const updateTag = async (
+export const updateTagAPI = async (
   tagId: string,
   tagData: Partial<Tag>
 ): Promise<ApiResponse<Tag>> => {
@@ -89,6 +98,10 @@ export const updateTag = async (
   return response.data;
 };
 
-export const deleteTag = async (tagId: string): Promise<void> => {
-  await taskService.delete(`/tags/${tagId}`);
+export const deleteTagAPI = async (
+  tagId: string
+): Promise<ApiTagDeleteResponse> => {
+  const response: AxiosResponse<ApiTagDeleteResponse> =
+    await taskService.delete(`/tags/${tagId}`);
+  return response.data;
 };

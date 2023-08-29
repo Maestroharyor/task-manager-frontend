@@ -17,6 +17,9 @@ const TaskDetail = () => {
   } = useTaskContext();
   const { tags } = useTagContext();
   const [availableTags, setAvailableTags] = useState(tags);
+  useEffect(() => {
+    setAvailableTags(tags);
+  }, [tags]);
   const [addTagMode, setAddTagMode] = useState(false);
   const [selectedTaskEdit, setSelectedTaskEdit] = useState<Task>(
     selectedTask || {

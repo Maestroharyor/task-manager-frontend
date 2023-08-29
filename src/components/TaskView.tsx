@@ -71,6 +71,8 @@ const TaskView = () => {
           title: "",
           description: "",
         });
+        setTagsList([]);
+        setTaskTag("");
         setIsAddModalOpen(false);
       } catch (error) {
         console.error(error);
