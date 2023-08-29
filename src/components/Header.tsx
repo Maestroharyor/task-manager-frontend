@@ -4,6 +4,7 @@ import { BsFillMoonStarsFill, BsSun } from "react-icons/bs";
 import { useTagContext } from "../context/tagContext";
 import { MdMenu } from "react-icons/md";
 import { useSidebarMenuContext } from "../context/sidebarMenuContext";
+import { capitalizeFirstLetter } from "../utils";
 
 const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -46,7 +47,7 @@ const Header = () => {
       <div className="md:col-span-5 items-end px-5 ">
         <h1 className="text-lg font-bold text-gray-600 dark:text-gray-500">
           {selectedTag
-            ? ` Tasks tagged "${selectedTag.name}"`
+            ? ` Tasks tagged "${capitalizeFirstLetter(selectedTag.name)}"`
             : "Showing All Tasks"}
         </h1>
       </div>

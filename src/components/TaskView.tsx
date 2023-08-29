@@ -170,17 +170,21 @@ const TaskView = () => {
         visible={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         animation="flip"
-        // width={600}
         height={500}
+        customStyles={{
+          maxWidth: "600px",
+          width: "100%",
+        }}
       >
-        <div className="p-3 space-y-3">
-          <h4 className="text-2xl font-bold text-blue-500 dark:text-yellow-500">
-            Add a new task
-          </h4>
+        <div className="p-3">
           <form
             className="flex flex-col gap-5 justify-between"
             onSubmit={handleAddNewTask}
           >
+            {" "}
+            <h4 className="text-2xl font-bold text-blue-500 dark:text-yellow-500">
+              Add a new task
+            </h4>
             <div className="flex flex-col gap-2">
               <label htmlFor="title">
                 Name of To-do <span className="text-red-500">*</span>
@@ -246,7 +250,6 @@ const TaskView = () => {
                 Enter Maximum of 2 tags to add to your task.
               </p>
             </div>
-
             <div className="py-4 flex justify-end">
               <button className="px-5 text-white text-xs py-2 bg-blue-500  hover:bg-blue-600  rounded transition-all duration-300 ease-in-out">
                 Add To-do

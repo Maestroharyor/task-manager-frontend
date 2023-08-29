@@ -69,8 +69,11 @@ const Tag = ({ tag }: Props) => {
         visible={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         animation="zoom"
-        width={600}
         height={330}
+        customStyles={{
+          maxWidth: "600px",
+          width: "100%",
+        }}
       >
         <div className="p-3 space-y-3">
           <h4 className="text-2xl font-bold text-blue-500 dark:text-yellow-500">

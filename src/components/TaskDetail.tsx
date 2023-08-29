@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { Task } from "../types";
 import { useTagContext } from "../context/tagContext";
+import { capitalizeFirstLetter } from "../utils";
 
 const TaskDetail = () => {
   const {
@@ -151,7 +152,7 @@ const TaskDetail = () => {
                     key={tag._id}
                     className="bg-gray-200 dark:bg-gray-600  px-4 py-1 rounded-full flex items-center tag gap-3 text-sm"
                   >
-                    {tag.name}
+                    {capitalizeFirstLetter(tag.name)}
                     <span
                       className=" cursor-pointer text-gray-600 dark:text-gray-400 tag-remove"
                       onClick={() => {
@@ -182,7 +183,7 @@ const TaskDetail = () => {
                           )
                           .map((tag) => (
                             <option key={tag._id} value={tag._id}>
-                              {tag.name}
+                              {capitalizeFirstLetter(tag.name)}
                             </option>
                           ))}
                       </select>
