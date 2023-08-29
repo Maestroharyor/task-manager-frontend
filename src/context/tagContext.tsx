@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import { tagsData } from "../data/tags";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NewTag, Tag } from "../types";
 import { toast } from "react-hot-toast";
 import { createTagAPI, deleteTagAPI, updateTagAPI } from "../server/api";
