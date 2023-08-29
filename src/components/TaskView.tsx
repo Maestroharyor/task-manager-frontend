@@ -4,7 +4,7 @@ import { useTaskContext } from "../context/taskContext";
 import { BsPlus } from "react-icons/bs";
 import Rodal from "rodal";
 import { toast } from "react-hot-toast";
-import { Task } from "../types";
+import { NewTask } from "../types";
 import { useTagContext } from "../context/tagContext";
 
 const TaskView = () => {
@@ -56,22 +56,25 @@ const TaskView = () => {
     setActiveTab(tabIndex);
   };
 
-  const handleAddNewTask = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddNewTask = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newTask.title) {
-      const newTaskAdded: Task = {
-        _id: crypto.randomUUID(),
-        title: newTask.title,
-        description: newTask.description,
-        completed: false,
-        tags: [],
-      };
-      createTask(newTaskAdded);
-      setNewTask({
-        title: "",
-        description: "",
-      });
-      setIsAddModalOpen(false);
+      try {
+        const newTaskAdded: NewTask = {
+          title: newTask.title,
+          description: newTask.description,
+          completed: false,
+          tags: tagsList,
+        };
+        await createTask(newTaskAdded);
+        setNewTask({
+          title: "",
+          description: "",
+        });
+        setIsAddModalOpen(false);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       toast.error("Please enter a task name");
     }

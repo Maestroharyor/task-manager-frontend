@@ -1,12 +1,14 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import { tasksData } from "../data/tasks";
-import { Task } from "../types";
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { NewTask, Task } from "../types";
+import {
+  createNewTaskAPI,
+  deleteTaskAPI,
+  updateTaskAPI,
+  updateTaskCompletionStatusAPI,
+} from "../server/api";
+import { mutate } from "swr";
+import { cacheKey } from "../server";
+import { toast } from "react-hot-toast";
 
 interface TaskContextProps {
   tasks: Task[];
@@ -17,7 +19,7 @@ interface TaskContextProps {
   markTaskAsCompleted: (taskId: string) => void;
   markTaskAsIncomplete: (taskId: string) => void;
   removeTask: (taskId: string) => void;
-  createTask: (newTask: Task) => void;
+  createTask: (newTask: NewTask) => void;
   updateTask: (taskId: string, updatedProperties: Partial<Task>) => void;
 }
 
@@ -34,83 +36,121 @@ export const useTaskContext = (): TaskContextProps => {
 export const TaskProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [tasks, setTasks] = useState<Task[]>(tasksData);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-  const createTask = (newTask: Task) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
-  };
-
-  const removeTask = (taskId: string) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
-  };
-
-  const updateTask = (taskId: string, updatedProperties: Partial<Task>) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task._id === taskId ? { ...task, ...updatedProperties } : task
-      )
-    );
-  };
-
-  const toggleTaskCompletion = (taskId: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task._id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
-
-    setSelectedTask((prevSelectedTask: Task | null) => {
-      if (prevSelectedTask && prevSelectedTask._id === taskId) {
-        return { ...prevSelectedTask, completed: !prevSelectedTask.completed };
-      }
-      return prevSelectedTask;
-    });
-  };
-
-  const markTaskAsCompleted = (taskId: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task._id === taskId ? { ...task, completed: true } : task
-      )
-    );
-  };
-
-  const markTaskAsIncomplete = (taskId: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task._id === taskId ? { ...task, completed: false } : task
-      )
-    );
-  };
-
-  const loadTasksFromLocalStorage = () => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
+  const createTask = async (newTask: NewTask) => {
+    try {
+      setTasks((prevTasks) => [
+        ...prevTasks,
+        { _id: crypto.randomUUID(), ...newTask, tags: [] },
+      ]);
+      await createNewTaskAPI(newTask);
+      mutate(cacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while creating task"
+      );
     }
   };
 
-  const loadSelectedTaskFromLocalStorage = () => {
-    const storedSelectedTask = localStorage.getItem("selectedTask");
-    if (storedSelectedTask) {
-      setSelectedTask(JSON.parse(storedSelectedTask));
+  const removeTask = async (taskId: string) => {
+    try {
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+      await deleteTaskAPI(taskId);
+      mutate(cacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while deleting task"
+      );
     }
   };
 
-  useEffect(() => {
-    loadTasksFromLocalStorage();
-    loadSelectedTaskFromLocalStorage();
-  }, []);
+  const updateTask = async (
+    taskId: string,
+    updatedProperties: Partial<Task>
+  ) => {
+    try {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === taskId ? { ...task, ...updatedProperties } : task
+        )
+      );
+      await updateTaskAPI(taskId, updatedProperties);
+      mutate(cacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while updating task"
+      );
+    }
+  };
 
-  useEffect(() => {
-    console.log("Changed");
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+  const toggleTaskCompletion = async (taskId: string) => {
+    try {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === taskId ? { ...task, completed: !task.completed } : task
+        )
+      );
+      await updateTaskCompletionStatusAPI(taskId, {
+        completed: !selectedTask?.completed,
+      });
 
-  useEffect(() => {
-    localStorage.setItem("selectedTask", JSON.stringify(selectedTask));
-  }, [selectedTask]);
+      setSelectedTask((prevSelectedTask: Task | null) => {
+        if (prevSelectedTask && prevSelectedTask._id === taskId) {
+          return {
+            ...prevSelectedTask,
+            completed: !prevSelectedTask.completed,
+          };
+        }
+        return prevSelectedTask;
+      });
+
+      mutate(cacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while updating task"
+      );
+    }
+  };
+
+  const markTaskAsCompleted = async (taskId: string) => {
+    try {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === taskId ? { ...task, completed: true } : task
+        )
+      );
+      await updateTaskCompletionStatusAPI(taskId, { completed: true });
+      mutate(cacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while updating task"
+      );
+    }
+  };
+
+  const markTaskAsIncomplete = async (taskId: string) => {
+    try {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === taskId ? { ...task, completed: false } : task
+        )
+      );
+      await updateTaskCompletionStatusAPI(taskId, { completed: false });
+      mutate(cacheKey);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while updating task"
+      );
+    }
+  };
 
   const value: TaskContextProps = {
     tasks,

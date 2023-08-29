@@ -31,7 +31,7 @@ export const useTagContext = (): TagContextProps => {
 export const TagProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [tags, setTags] = useState<Tag[]>(tagsData);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
 
   const createTag = (newTag: Tag) => {
@@ -50,33 +50,6 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
     const updatedTags = tags.filter((tag) => tag._id !== tagId);
     setTags(updatedTags);
   };
-
-  const loadTagsFromLocalStorage = () => {
-    const storedTags = localStorage.getItem("tags");
-    if (storedTags) {
-      setTags(JSON.parse(storedTags));
-    }
-  };
-
-  const loadSelectedTagFromLocalStorage = () => {
-    const storedSelectedTag = localStorage.getItem("selectedTag");
-    if (storedSelectedTag) {
-      setSelectedTag(JSON.parse(storedSelectedTag));
-    }
-  };
-
-  useEffect(() => {
-    loadTagsFromLocalStorage();
-    loadSelectedTagFromLocalStorage();
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("tags", JSON.stringify(tags));
-  }, [tags]);
-
-  useEffect(() => {
-    localStorage.setItem("selectedTag", JSON.stringify(selectedTag));
-  }, [selectedTag]);
 
   const value: TagContextProps = {
     tags,

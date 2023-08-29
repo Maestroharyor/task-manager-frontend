@@ -12,6 +12,13 @@ import "@fontsource/koho/600.css";
 import "@fontsource/koho/700.css";
 import "rodal/lib/rodal.css";
 import "./index.css";
+import { preload } from "swr";
+import { cacheKey } from "./server/index.ts";
+import { getTags, getTasks } from "./server/api.ts";
+import { cache } from "swr/_internal";
+
+preload(cacheKey, getTasks);
+preload(cache, getTags);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

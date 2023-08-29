@@ -32,8 +32,8 @@ const Tag = ({ tag }: Props) => {
   };
   return (
     <>
-      <button
-        className="py-2 rounded flex justify-between items-center w-full hover:bg-gray-200 dark:hover:bg-gray-700 px-5"
+      <div
+        className="py-2 rounded flex justify-between items-center w-full hover:bg-gray-200 dark:hover:bg-gray-700 px-5 cursor-pointer"
         onClick={() => {
           setSelectedTag(tag);
           if (menuState.isVisible) {
@@ -63,7 +63,7 @@ const Tag = ({ tag }: Props) => {
             <MdOutlineModeEditOutline />
           </button>
         </div>
-      </button>
+      </div>
       <Rodal
         visible={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}

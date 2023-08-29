@@ -19,3 +19,19 @@ input[type=checkbox]:checked+label span:nth-of-type(2) {
 html.dark .rodal-dialog{
   background-color: #111827;
 }
+
+.loader div {
+  animation-duration: 0.5s;
+}
+
+.loader div:first-child {
+  animation-delay: 0.1s;
+}
+
+.loader div:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.loader div:nth-child(3) {
+  animation-delay: 0.6s;
+}

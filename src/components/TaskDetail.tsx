@@ -67,8 +67,8 @@ const TaskDetail = () => {
     toggleTaskCompletion(taskId);
   };
 
-  const handleTaskDelete = (taskId: string) => {
-    removeTask(taskId);
+  const handleTaskDelete = async (taskId: string) => {
+    await removeTask(taskId);
     setSelectedTask(null);
     toast.success("Task Deleted");
   };
