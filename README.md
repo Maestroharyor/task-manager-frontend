@@ -1,4 +1,3 @@
-````markdown
 # My ToDo List App
 
 A highly intuitive ToDo List/Task Manager web application built using React, TypeScript, and SWR for data fetching.
@@ -32,6 +31,7 @@ Check out the live demo of the app: [Task Manager List App](https://task-manager
    git clone https://github.com/Maestroharyor/task-manager-frontend
    cd todo-app
    ```
+
 ````
 
 2. Install dependencies:
@@ -69,3 +69,4 @@ Check out the live demo of the app: [Task Manager List App](https://task-manager
 ## Contributions
 
 Contributions are welcome! Feel free to open issues or submit pull requests for enhancements, bug fixes, or new features.
+````
