@@ -32,8 +32,6 @@ Check out the live demo of the app: [Task Manager List App](https://task-manager
    cd todo-app
    ```
 
-````
-
 2. Install dependencies:
 
    ```bash
