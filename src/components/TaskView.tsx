@@ -133,6 +133,7 @@ const TaskView = () => {
           </button>
         </div>
         <div className="mt-4">
+          {!tasks.length && <p>No tasks added...</p>}
           {tasks
             .filter((task) => {
               if (

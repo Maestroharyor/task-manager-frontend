@@ -3,7 +3,7 @@ import { NewTag, Tag } from "../types";
 import { toast } from "react-hot-toast";
 import { createTagAPI, deleteTagAPI, updateTagAPI } from "../server/api";
 import { mutate } from "swr";
-import { tagCacheKey } from "../server";
+import { cacheKey, tagCacheKey } from "../server";
 
 interface TagContextProps {
   tags: Tag[];
@@ -56,6 +56,7 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
       );
       await updateTagAPI(tagId, updatedProperties);
       mutate(tagCacheKey);
+      mutate(cacheKey);
     } catch (error: any) {
       toast.error(
         error?.response?.data?.message ||
@@ -70,6 +71,7 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
       setTags(updatedTags);
       await deleteTagAPI(tagId);
       mutate(tagCacheKey);
+      mutate(cacheKey);
     } catch (error: any) {
       toast.error(
         error?.response?.data?.message ||
