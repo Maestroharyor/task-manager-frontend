@@ -84,7 +84,7 @@ const TaskDetail = () => {
   };
   return (
     <section
-      className={`absolute  top-0 right-0 max-w-[500px] shadow-lg lg:shadow-none shadow-gray-950 lg:col-span-4 pb-10 lg:relative overflow-y-scroll overflow-x-hidden w-full h-full bg-gray-100 dark:bg-gray-800 z-[9] transition-all duration-300 ease-in-out ${
+      className={`absolute  top-0 right-0 max-w-[500px] shadow-lg lg:shadow-none shadow-gray-950 lg:col-span-4 pb-10 lg:relative overflow-y-auto overflow-x-hidden w-full h-full bg-gray-100 dark:bg-gray-800 z-[9] transition-all duration-300 ease-in-out ${
         selectedTask ? "" : "right-[-100vw] lg:right-0 hidden lg:block"
       }`}
     >

@@ -33,7 +33,7 @@ const TagPane = () => {
   };
   return (
     <div
-      className={`absolute left-0 top-0 w-full h-full md:static md:col-span-4 lg:col-span-3  px-5 overflow-y-scroll h-[calc(100vh-150px) z-10 bg-gray-100 dark:bg-gray-800 transition-all duration-300 ease-in-out ${
+      className={`absolute left-0 top-0 w-full h-full md:static md:col-span-4 lg:col-span-3  px-5 overflow-y-auto h-[calc(100vh-150px) z-10 bg-gray-100 dark:bg-gray-800 transition-all duration-300 ease-in-out ${
         menuState.isVisible ? "" : "left-[-100vw] lg:left-0"
       }`}
     >

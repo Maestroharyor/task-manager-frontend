@@ -86,7 +86,7 @@ const TaskView = () => {
   const todoTasks = tasks.filter((task) => !task.completed);
   return (
     <>
-      <div className="md:col-span-8 lg:col-span-5 px-5 pb-6  overflow-y-scroll h-[calc(100vh-150px)">
+      <div className="md:col-span-8 lg:col-span-5 px-5 pb-6  overflow-y-auto h-[calc(100vh-150px)">
         <div className="flex border-b border-gray-300 dark:border-gray-600 sticky top-[0px]  z-[2] bg-gray-100 dark:bg-gray-800 justify-between">
           <div className="flex ">
             <div
