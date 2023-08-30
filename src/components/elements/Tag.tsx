@@ -90,7 +90,7 @@ const Tag = ({ tag }: Props) => {
               <input
                 type="text"
                 required
-                className="px-5 py-3 rounded bg-white dark:bg-gray-800"
+                className="px-5 py-3 rounded bg-gray-100 dark:bg-gray-800 ring-2 ring-gray-300 focus:ring-gray-500 dark:ring-gray-700 dark:focus:ring-gray-500 focus:outline-none"
                 autoFocus
                 value={selectedTagEdit.name}
                 onChange={(e) =>
@@ -106,7 +106,7 @@ const Tag = ({ tag }: Props) => {
               <input
                 type="color"
                 required
-                className="px-5 py-3 rounded bg-white dark:bg-gray-800 w-full"
+                className="px-5 py-3 rounded bg-gray-100 dark:bg-gray-800 ring-2 ring-gray-300 focus:ring-gray-500 dark:ring-gray-700 dark:focus:ring-gray-500 focus:outline-none w-full"
                 autoFocus
                 value={selectedTagEdit.color}
                 onChange={(e) =>

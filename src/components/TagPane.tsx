@@ -47,7 +47,7 @@ const TagPane = () => {
             <input
               type="text"
               required
-              className="focus:outline-none py-2 pl-2 rounded bg-white dark:bg-gray-800 w-[inherit]"
+              className="focus:outline-none py-2 pl-2 rounded bg-transparent w-[inherit]"
               autoFocus
               value={tagName}
               onChange={(e) => setTagName(e.target.value)}
