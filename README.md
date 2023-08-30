@@ -67,4 +67,3 @@ Check out the live demo of the app: [Task Manager List App](https://task-manager
 ## Contributions
 
 Contributions are welcome! Feel free to open issues or submit pull requests for enhancements, bug fixes, or new features.
-````
